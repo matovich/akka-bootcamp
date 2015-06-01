@@ -13,7 +13,7 @@ namespace WinTail
         public const string ExitCommand = "exit";
         public const string StartCommand = "start";
 
-        private IActorRef _consoleWriterActor;
+        private readonly IActorRef _consoleWriterActor;
 
         public ConsoleReaderActor(IActorRef consoleWriterActor)
         {
@@ -25,7 +25,7 @@ namespace WinTail
             if (message.Equals(StartCommand))
                 DoPrintInstructions();
             else if (message is Messages.InputError)
-                _consoleWriterActor.Tell(message as Messages.InputError);
+                _consoleWriterActor.Tell((Messages.InputError) message);
 
             GetAndValidateInput();
         }
@@ -47,8 +47,7 @@ namespace WinTail
             var message = Console.ReadLine();
             if (string.IsNullOrEmpty(message))
             {
-                // signal that the user needs to supply an input, as previously
-                // received input was blank
+                // signal that the user needs to supply an input, as previously received input was blank
                 Self.Tell(new Messages.NullInputError("No input received."));
             }
             else if (String.Equals(message, ExitCommand, StringComparison.OrdinalIgnoreCase))
@@ -58,8 +57,7 @@ namespace WinTail
             }
             else
             {
-                var valid = IsValid(message);
-                if (valid)
+                if (IsValid(message))
                 {
                     _consoleWriterActor.Tell(new Messages.InputSuccess("Thank you! Message was valid."));
 
@@ -79,8 +77,7 @@ namespace WinTail
         /// </summary>
         private static bool IsValid(string message)
         {
-            var valid = message.Length % 2 == 0;
-            return valid;
+            return message.Length % 2 == 0;
         }
 
         #endregion

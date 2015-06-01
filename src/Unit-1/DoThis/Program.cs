@@ -1,27 +1,27 @@
-﻿using System;
-﻿using Akka.Actor;
+﻿using System.Linq;
+using Akka.Actor;
 
 namespace WinTail
 {
     #region Program
     class Program
     {
-        public static ActorSystem MyActorSystem;
+        private static ActorSystem _myActorSystem;
 
         static void Main(string[] args)
         {
             // initialize MyActorSystem
-            MyActorSystem = ActorSystem.Create("MyActorSystem");
+            _myActorSystem = ActorSystem.Create("MyActorSystem");
 
             // time to make your first actors!
-            var consoleWriteActor = MyActorSystem.ActorOf(Props.Create(() => new ConsoleWriterActor()));
-            var consoleReaderActor = MyActorSystem.ActorOf(Props.Create(() => new ConsoleReaderActor(consoleWriteActor)));
+            var consoleWriteActor = _myActorSystem.ActorOf(Props.Create(() => new ConsoleWriterActor()));
+            var consoleReaderActor = _myActorSystem.ActorOf(Props.Create(() => new ConsoleReaderActor(consoleWriteActor)));
 
             // tell console reader to begin
             consoleReaderActor.Tell(ConsoleReaderActor.StartCommand);
 
             // blocks the main thread from exiting until the actor system is shut down
-            MyActorSystem.AwaitTermination();
+            _myActorSystem.AwaitTermination();
         }
     }
     #endregion
