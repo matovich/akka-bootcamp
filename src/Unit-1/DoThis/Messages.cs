@@ -2,7 +2,7 @@
 
 namespace WinTail
 {
-    public class Messages
+    public static class Messages
     {
         #region Neutral/system messages
 
