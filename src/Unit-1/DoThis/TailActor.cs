@@ -10,6 +10,7 @@ namespace WinTail
     /// </summary>
     public class TailActor : UntypedActor
     {
+
         #region Message types
 
         /// <summary>
