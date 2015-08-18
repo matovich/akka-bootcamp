@@ -27,7 +27,7 @@ namespace ChartApp.Actors
         {
             _counter = _performanceCounterGenerator();
             Context.System.Scheduler.ScheduleTellRepeatedly(TimeSpan.FromMilliseconds(250), 
-                TimeSpan.FromMilliseconds(250), Self, new GatherMetrics(), , Self, _cancelPublishing );
+                TimeSpan.FromMilliseconds(250), Self, new GatherMetrics(), Self, _cancelPublishing );
         }
 
         protected override void PostStop()
