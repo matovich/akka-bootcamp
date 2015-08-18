@@ -33,10 +33,20 @@ namespace ChartApp
 
         #endregion
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btnCpu_Click(object sender, EventArgs e)
         {
-            var series = ChartDataHelper.RandomSeries("FakeSeries" + _seriesCounter.GetAndIncrement());
-            _chartActor.Tell(new ChartingActor.AddSeries(series));
+
         }
+
+        private void btnMemory_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnDisk_Click(object sender, EventArgs e)
+        {
+
+        }
+
     }
 }
