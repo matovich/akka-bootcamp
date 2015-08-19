@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Diagnostics;
 using Akka.Actor;
 
 namespace ChartApp.Actors
@@ -10,12 +8,12 @@ namespace ChartApp.Actors
     class PerformanceCounterActor : UntypedActor
     {
         private readonly string _seriesName;
-        private readonly Func<PerformanceCounterActor> _performanceCounterGenerator;
+        private readonly Func<PerformanceCounter> _performanceCounterGenerator;
         private HashSet<IActorRef> _subscriptions;
-        private Cancelable _cancelPublishing;
-        private PerformanceCounterActor _counter;
+        private ICancelable _cancelPublishing;
+        private PerformanceCounter _counter;
 
-        public PerformanceCounterActor(string seriesName, Func<PerformanceCounterActor> performanceCounterGenerator )
+        public PerformanceCounterActor(string seriesName, Func<PerformanceCounter> performanceCounterGenerator )
         {
             _seriesName = seriesName;
             _performanceCounterGenerator = performanceCounterGenerator;
